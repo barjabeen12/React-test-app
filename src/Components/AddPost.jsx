@@ -5,9 +5,19 @@ function AddPost() {
     const [Title, setTitle]= useState();
     const [body, setbody]= useState();
     const [validate, setvalidate] = useState(false);
+    const [validated, setValidated] = useState(false);
+
   const [error, setError] = useState();
-    const handleClick = () =>{
+    const handleClick = (event) =>{
+        event.preventDefault();
+        const form = event.currentTarget;
         
+    if (form.checkValidity() === false) {
+      
+      event.stopPropagation();
+      
+    }
+    if(Title !=null && body!=null){
         fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
     body: JSON.stringify({
@@ -19,12 +29,15 @@ function AddPost() {
         'Content-type': 'application/json; charset=UTF-8',
     },
     })
-    .then((response) => response.json())
+    .then((response) => {response.json()
+        setvalidate(true)
+    })
     .then((json) => console.log(json))
-    .then(setvalidate(true));
+    
 
+    }
 
-
+    setValidated(true);
 
     }
     return (
@@ -42,16 +55,18 @@ function AddPost() {
             </Alert>
       
             )}
-            <Form>
+            <Form noValidate validated={validated} onSubmit={handleClick}>  
          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
          <Form.Label>Title</Form.Label>
-            <Form.Control type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)}/>
+            <Form.Control required type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Body</Form.Label>
-            <Form.Control as="textarea" rows={3} placeholder="Body" onChange={(e) => setbody(e.target.value)} />
+            <Form.Control required as="textarea" rows={3} placeholder="Body" onChange={(e) => setbody(e.target.value)}  />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
-            <Button className="mb-3" style={{marginTop:"30px "}} onClick={handleClick}>
+            <Button type="submit" className="mb-3" style={{marginTop:"30px "}}>
             Submit
             </Button>
             </Form>

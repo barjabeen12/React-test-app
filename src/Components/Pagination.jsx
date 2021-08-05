@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useMemo } from "react";
-import { Container } from "react-bootstrap";
+import { Container,Row,Col } from "react-bootstrap";
 import "./Pagination.css"
 
 
@@ -41,11 +41,15 @@ function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
         
     
         <Container>
-      
+
+          <Row>
+          
           {getPaginatedData().map((d, idx) => (
-            
+            <Col lg={3} md={6} sm={12}>  
             <RenderComponent key={idx} data={d} />
+            </Col>
           ))}
+          </Row>
         </Container>
     
         

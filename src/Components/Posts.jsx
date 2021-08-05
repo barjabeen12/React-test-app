@@ -37,7 +37,7 @@ function Posts() {
                     RenderComponent={PostCard}
                     title="Posts"
                     pageLimit={5}
-                    dataLimit={10}
+                    dataLimit={12}
                      />
                     </>
       ) : (

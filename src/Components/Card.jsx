@@ -22,12 +22,12 @@ function PostCard(props) {
         
     }
     return (
-        <Card style={{ maxHeight: '400px' ,marginTop:"20px"}}>
-        <Card.Header >{id}</Card.Header>
+        <Card style={{ maxHeight: '400px' ,marginTop:"20px", borderRadius:"10px"}}>
+        <Card.Header>{id}</Card.Header>
         <Card.Body>
-          <h2>{title}</h2>
+          <h2>{(title).slice(0,8)}...</h2>
           <Card.Text>
-          {body}
+          {(body).slice(0,80)}...
           </Card.Text>
           <Button variant="danger" onClick={handleDelete}>Delete</Button>
         </Card.Body>

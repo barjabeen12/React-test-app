@@ -28,10 +28,11 @@
   .next {
     background: #fff;
     border: none;
-    padding: 10px;
-    color: blue;
+    padding: 5px;
+    color: rgb(38, 38, 39);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
     margin: 0 10px;
+    border-radius: 10px;
     cursor: pointer;
   }
   
