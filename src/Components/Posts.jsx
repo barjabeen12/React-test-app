@@ -47,7 +47,9 @@ function Posts() {
                   
                 ):(
                     <Container>
-                         <CircularProgress disableShrink />
+                        <Content>
+                         <CircularProgress  />
+                        </Content>
                     </Container>
                 )
             }

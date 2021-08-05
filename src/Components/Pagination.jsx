@@ -50,7 +50,7 @@ function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
             </Col>
           ))}
           </Row>
-        </Container>
+       
     
         
         <div className="pagination">
@@ -72,6 +72,7 @@ function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
               <span>{item}</span>
             </button>
           ))}
+           
     
           
           <button
@@ -80,7 +81,9 @@ function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
           >
             next
           </button>
+          
         </div>
+        </Container>
       </div>
     )
   }
