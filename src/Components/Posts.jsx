@@ -1,8 +1,8 @@
-import React, { useState, useEffect,useMemo } from "react";
-import {Container, Row, Col, Button} from "react-bootstrap"
+import React, { useState, useEffect } from "react";
+import {Container, Row} from "react-bootstrap"
 import PostCard from "./Card"
 import styled from "styled-components";
-import { Grid, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import Pagination from "./Pagination"
 function Posts() {
     const [posts, setPosts] = useState();
@@ -35,7 +35,6 @@ function Posts() {
                     <Pagination
                     data={posts}
                     RenderComponent={PostCard}
-                    title="Posts"
                     pageLimit={5}
                     dataLimit={12}
                      />

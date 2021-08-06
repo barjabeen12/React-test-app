@@ -18,6 +18,7 @@ function AddPost() {
       
     }
     if(Title !=null && body!=null){
+        try{
         fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
     body: JSON.stringify({
@@ -34,12 +35,16 @@ function AddPost() {
         setvalidate(true)
         console.log(r)
     })
+}
+catch(error){
+    setError(true);
+}
     
     
 
     }
 
-    setValidated(true);
+    
 
     }
     return (

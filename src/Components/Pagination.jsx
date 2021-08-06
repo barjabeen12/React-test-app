@@ -5,7 +5,7 @@ import "./Pagination.css"
 
 
 
-function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
+function Pagination({ data, RenderComponent,pageLimit, dataLimit }) {
     const [pages] = useState(Math.round(data.length / dataLimit));
     const [currentPage, setCurrentPage] = useState(1);
   
