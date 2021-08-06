@@ -31,6 +31,7 @@ function AddPost() {
     })
     .then((response) => {response.json()
         setvalidate(true)
+        console.log(json)
     })
     .then((json) => console.log(json))
     
