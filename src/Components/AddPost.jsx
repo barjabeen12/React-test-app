@@ -18,7 +18,6 @@ function AddPost() {
       
     }
     if(Title !=null && body!=null){
-        try{
         fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
     body: JSON.stringify({
@@ -35,16 +34,9 @@ function AddPost() {
         setvalidate(true)
         console.log(r)
     })
-}
-catch(error){
-    setError(true);
-}
-    
-    
-
     }
 
-    
+    setValidated(true);
 
     }
     return (
@@ -53,7 +45,7 @@ catch(error){
             <h1>Create New Post</h1>
             {error && (
             <Alert  variant="danger">
-            {error}
+            please Try Again
             </Alert>
             )}
             {validate && (
