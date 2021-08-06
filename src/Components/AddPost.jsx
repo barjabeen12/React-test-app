@@ -26,14 +26,15 @@ function AddPost() {
         userId: 1,
     }),
     headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        'Content-type': 'application/json',
     },
     })
-    .then((response) => {response.json()
+    .then((response) => {
+        var r = response.json()
         setvalidate(true)
-        console.log(json)
+        console.log(r)
     })
-    .then((json) => console.log(json))
+    
     
 
     }
