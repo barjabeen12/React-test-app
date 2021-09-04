@@ -136,7 +136,7 @@ const Logo = styled.h2`
 
 `
 const Sidebar = styled.div`
-  height: 100%;
+  height: 1000px;
   left: 0;
   position: fixed;
   top: 0;
