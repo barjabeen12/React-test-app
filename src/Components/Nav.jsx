@@ -1,19 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { useHistory} from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { Drawer} from "@material-ui/core";
+import "./Navbar.scss"
 
+export default function NavBarr() {
+  
+  const history = useHistory();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const handleHome = ()=> history.push("/");
+  const handleLike = ()=> {
+    const id= user.result._id;
+    history.push(`/favorites/${id}`);
+  
+  }
+  const handleCategory= ()=> history.push("/postListing");
+  const handleAbout =  ()=> history.push("/aboutus");
+  useEffect(() => {
+    const token = user?.token;
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
 
-export default function Nav() {
-const history = useHistory();
-const handleHome = ()=> history.push("/");
-const handleCreate = ()=> history.push("/addpost");
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const logout = () => {
+    
+    history.push("/");
+    setUser(null);
+    setAnchorEl(null);
+  };
+  const HandleProfile = () => {
+   const id= user.result._id;
+   console.log(id);
+    history.push(`/profile/${id}`);
+    setAnchorEl(null);
+  }
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    
+  };
+  const handleAccount = () => {
+    const id= user.result._id;
+    history.push(`/myaccount/${id}`);
+    setAnchorEl(null);
+    
+  }; 
+  const handlesignin = () => {
+    history.push("/Auth");
+  }
   const [state, setState] = useState({
     mobileView: false,
-    drawerOpen: false,
   });
 
-  const { mobileView, drawerOpen } = state;
+  const { mobileView } = state;
 
   useEffect(() => {
     const setResponsiveness = () => {
@@ -28,85 +69,67 @@ const handleCreate = ()=> history.push("/addpost");
   }, []);
 
   
+
   
   const displayDesktop = () => {
   return (
     <div>
-    <NavBar>
-      <Logo><img src="/images/logo.png" width="60px" height="35px"/></Logo>
-    <NavMenu>
-    <a onClick={handleHome}>
-      <span>Posts</span>
-    </a>
-    <a onClick={handleCreate}>
-      <span>Create</span>
-    </a>
-    <a>
-      <span>Q&A</span>
-    </a>
-    <a>
-      <span>Downloads</span>
-    </a>
-    <a>
-      <span>Careers</span>
-    </a>
-    </NavMenu>
+    <Nav>
     
-    
-    </NavBar>
-    
+    </Nav>
     
     </div>
   );};
   const displayMobile = () => {
-    const handleDrawerOpen = () =>
-      setState((prevState) => ({ ...prevState, drawerOpen: true }));
-    const handleDrawerClose = () =>
-      setState((prevState) => ({ ...prevState, drawerOpen: false }));
+    
       return (
-        <div>
-        <NavBar> 
-         <a onClick={handleDrawerOpen}> <i class="fa fa-bars" aria-hidden="true" ></i></a>
-
-           <div>
-         <Drawer
-            {...{
-              anchor: "left",
-              open: drawerOpen,
-              onClose: handleDrawerClose,
-            }}
-          >
-            <Sidebar>
-            <NavMenuMobile>              
-          <a onClick={handleHome}>
-          <span>Posts</span>
-           </a>
-           <a onClick={handleCreate}>
-              <span>Create</span>
-           </a>
-           <a>
-          <span>Services</span>
-          </a>
-          <a>
-      <span>Q&A</span>
-    </a>
-    <a>
-      <span>Downloads</span>
-    </a>
-    <a>
-      <span>Careers</span>
-    </a>
-           
-           </NavMenuMobile>
-           </Sidebar>
-           </Drawer> 
-       </div>
-
-    
-    </NavBar>
-    
+        <>
+        <Nav>
+          
+          <LogoDiv>
+        <NavMenuLogo>
+        <Logo src="/images/logo.png" />
+        </NavMenuLogo>
+      <LogoText>Holicloset</LogoText>
+    </LogoDiv>
+    </Nav>
+  {user ? (
+    <>
+    <input type="checkbox" id="overlay-input"/>
+          <label for="overlay-input" id="overlay-button"><span></span></label>
+    <div id="overlay">
+      <ul>
+      <li><a onClick={handleHome}>Home</a></li>
+      <li><a onClick={handleCategory}>Categories</a></li>
+      <li><a onClick={handleAbout}>About us</a></li>
+      <li><a onClick={handleLike}>Favourites</a></li>
+      <li><a onClick={handleAccount}>My Account</a></li>
+      <li><a onClick={HandleProfile}>My Profile</a></li>
+      <li><a onClick={logout}>Sign out</a></li>
+      </ul>
+      </div>
+      
+      </>
+  ):(
+    <>
+    <input type="checkbox" id="overlay-input"/>
+          <label for="overlay-input" id="overlay-button"><span></span></label>
+    <div id="overlay">
+    <ul>
+      <li><a onClick={handleHome}>Home</a></li>
+      <li><a onClick={handleCategory}>Categories</a></li>
+      <li><a onClick={handleAbout}>About us</a></li>
+      <li><a onClick={handlesignin}>Sign in</a></li>
+    </ul>
     </div>
-      );
+    
+    </>
+
+  )
+  }
+  
+  </>
+  );
     };
     return (
       
@@ -119,37 +142,25 @@ const handleCreate = ()=> history.push("/addpost");
     );
 }
 
-const NavBar = styled.nav`
+const Nav = styled.nav`
 height: 45px;
 width: 100%;
 display: flex;
 align-items: center;
 padding: 0px 23px;
 overflow: hidden;
-background: #222222;
-border: 2px solid #222222;
+background: #000000;
+border: 2px solid #000000;
 box-sizing: border-box;
 color: white;
 
 `
-const Logo = styled.h2`
-
-`
-const Sidebar = styled.div`
-  height: 1000px;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 200px;
-  color: white;
-  background-color: #222222;
-`
 const NavMenu = styled.div`
 display: flex;
-margin-left: 2%;
 flex: 1;
+align-items: center;
 color: white;
-background: #222222;
+background: #000000;
 a{
     display: flex;
     align-items: centre;
@@ -157,7 +168,7 @@ a{
     cursor: pointer;
     font-family: Poppins;
     font-style: normal;
-    background: #222222;
+    background: #000000;
     span {
         font-size: 12px;
         font-weight: normal;
@@ -192,7 +203,7 @@ const NavMenuMobile = styled.div`
 display: flex;
 flex-direction: column;
 color: white;
-background:#222222;
+background: #000000;
 margin-top: 60px;
 a{
     display: flex;
@@ -203,7 +214,7 @@ a{
     cursor: pointer;
     font-family: Poppins;
     font-style: normal;
-    background: #222222;
+    background: #000000;
     span {
         font-size: 16px;
         font-weight: normal;
@@ -234,4 +245,56 @@ a{
 }
 
 ` 
+const UserImg = styled.img `
+    width: 48px;
+    height: 48px;
+    padding: 6px 4px 5px 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 100px;
 
+`
+const Icons = styled.div`
+margin-right: 10px;
+align: center;
+  i{
+    width: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+`
+const IconsMobile= styled.div`
+margin-left: 90px;
+align: center;
+  img{
+    width: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+ 
+  @media screen and (min-width: 320px) {
+    flex: 1;
+  }
+
+`
+const LogoDiv = styled.div`
+ display: flex;
+ flex-direction: row;
+`
+const NavMenuLogo = styled.div`
+margin-top: 10px;
+
+
+`
+const Logo = styled.img`
+    width: 30px;
+    
+`
+const LogoText = styled.h1`
+    color:white;
+    margin-left:5px;
+    font-family: Poppins;
+    font-size: 20px;
+    margin-top: 10px;
+
+`

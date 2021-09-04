@@ -1,6 +1,7 @@
 import React from 'react';
-import Nav from "./Components/Nav"
-import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBarr from "./Components/Nav"
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css"
 import Footer from "./Components/Footer";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <div>
-      <Nav/>
+      <NavBarr/>
     </div>
   );
 }
